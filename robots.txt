@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://szrollis.github.io/index-site-i-game-com-cn/sitemap.xml
