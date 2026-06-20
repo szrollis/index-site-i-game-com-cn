@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bwin · 信息卡片 · 主题介绍</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f2f7f9;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans TC', sans-serif;
+            color: #1c2b33;
+            line-height: 1.6;
+            padding: 1.8rem 1.2rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .page {
+            max-width: 1100px;
+            width: 100%;
+        }
+
+        /* 主视觉 ———— 干净蓝绿调 */
+        .hero {
+            background: linear-gradient(145deg, #d9efe9 0%, #bfdfd7 100%);
+            border-radius: 40px 40px 40px 40px;
+            padding: 2.8rem 2.2rem;
+            margin-bottom: 2.8rem;
+            box-shadow: 0 12px 24px -12px rgba(24, 78, 68, 0.2);
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            top: -40px;
+            right: -30px;
+            width: 200px;
+            height: 200px;
+            background: rgba(49, 138, 107, 0.06);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            color: #0a2a28;
+            line-height: 1.1;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero .subhead {
+            font-size: 1.1rem;
+            color: #2a534b;
+            max-width: 70%;
+            border-left: 4px solid #167a66;
+            padding-left: 1rem;
+            margin-top: 0.2rem;
+            font-weight: 380;
+        }
+
+        /* 网格卡片区 */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.8rem;
+            margin: 2.4rem 0 2rem;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 1.8rem 1.5rem 2rem;
+            box-shadow: 0 6px 20px rgba(33, 85, 73, 0.06);
+            border: 1px solid rgba(100, 155, 138, 0.2);
+            transition: box-shadow 0.2s, transform 0.15s;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .card:hover {
+            box-shadow: 0 12px 30px -8px rgba(28, 90, 74, 0.15);
+            transform: translateY(-3px);
+        }
+
+        .card .icon {
+            background: #d7eee6;
+            width: 44px;
+            height: 44px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            margin-bottom: 0.2rem;
+            color: #136854;
+        }
+
+        .card h3 {
+            font-size: 1.4rem;
+            font-weight: 520;
+            color: #123b34;
+            letter-spacing: -0.01em;
+        }
+
+        .card p {
+            color: #2b4d44;
+            font-size: 0.98rem;
+            margin-top: 0.3rem;
+        }
+
+        .card .tag {
+            display: inline-block;
+            background: #bfe2d7;
+            color: #0a3d33;
+            font-size: 0.75rem;
+            font-weight: 500;
+            padding: 0.2rem 0.9rem;
+            border-radius: 40px;
+            margin-top: 0.5rem;
+            width: fit-content;
+        }
+
+        /* 自然链接段落 */
+        .link-section {
+            background: #ffffffda;
+            padding: 2rem 2.2rem;
+            border-radius: 36px;
+            margin: 1.8rem 0 2.8rem;
+            backdrop-filter: blur(2px);
+            border: 1px solid rgba(60, 130, 110, 0.15);
+            box-shadow: 0 10px 20px -10px rgba(20, 60, 50, 0.08);
+        }
+
+        .link-section p {
+            font-size: 1.05rem;
+            margin-bottom: 1rem;
+            color: #1d3c35;
+        }
+
+        .link-section a {
+            color: #056f5b;
+            text-decoration: none;
+            font-weight: 530;
+            border-bottom: 2px solid transparent;
+            transition: border-bottom 0.2s, color 0.1s;
+        }
+
+        .link-section a:hover {
+            border-bottom-color: #117a65;
+            color: #074d3f;
+        }
+
+        /* FAQ 摘要 – 压缩但清晰 */
+        .faq-mini {
+            background: #e5f2ed;
+            border-radius: 32px;
+            padding: 1.8rem 2rem;
+            margin: 2rem 0 1.2rem;
+        }
+
+        .faq-mini h4 {
+            font-size: 1.2rem;
+            font-weight: 520;
+            color: #0f4037;
+            margin-bottom: 1rem;
+            letter-spacing: -0.01em;
+        }
+
+        .faq-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.1rem;
+            margin-bottom: 1.1rem;
+            border-bottom: 1px dashed #aacbc0;
+            padding-bottom: 0.8rem;
+        }
+
+        .faq-item:last-child {
+            border-bottom: 0;
+            margin-bottom: 0;
+        }
+
+        .faq-q {
+            font-weight: 520;
+            color: #0a362e;
+            font-size: 1rem;
+        }
+
+        .faq-a {
+            color: #245b4d;
+            font-size: 0.92rem;
+        }
+
+        /* 人群 & 场景混合卡片 (差异化) */
+        .cluster {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            justify-content: space-between;
+            margin: 1.4rem 0 0.6rem;
+        }
+
+        .pill-box {
+            background: white;
+            border-radius: 100px;
+            padding: 0.8rem 1.8rem;
+            border: 1px solid #b2d4c8;
+            flex: 1 1 auto;
+            min-width: 160px;
+            text-align: center;
+            font-weight: 430;
+            color: #1c5544;
+            box-shadow: 0 2px 8px rgba(32, 88, 72, 0.04);
+        }
+
+        .pill-box strong {
+            font-weight: 600;
+            color: #0a4637;
+        }
+
+        footer {
+            margin-top: 3rem;
+            font-size: 0.85rem;
+            color: #5f7e74;
+            border-top: 1px solid #c8ddd4;
+            padding-top: 1.8rem;
+            text-align: center;
+            letter-spacing: 0.3px;
+        }
+
+        /* 响应式 */
+        @media (max-width: 600px) {
+            body {
+                padding: 1rem 0.8rem;
+            }
+
+            .hero {
+                padding: 2rem 1.4rem;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero .subhead {
+                max-width: 100%;
+                font-size: 1rem;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+            }
+
+            .link-section {
+                padding: 1.5rem 1.2rem;
+            }
+
+            .faq-mini {
+                padding: 1.4rem 1.2rem;
+            }
+
+            .cluster {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .pill-box {
+                padding: 0.6rem 1rem;
+                min-width: unset;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .hero h1 {
+                font-size: 1.9rem;
+            }
+
+            .card h3 {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+    <!-- 主视觉 hero -->
+    <div class="hero">
+        <h1>bwin · 清晰视野</h1>
+        <div class="subhead">
+            围绕平台使用体验、信息整合与功能场景，整理一份基础参考。<br>
+            以下是围绕 <strong>bwin</strong> 主题展开的卡片说明。
+        </div>
+    </div>
+
+    <!-- 信息卡片网格：用途、特点、常见场景 -->
+    <div class="grid">
+        <div class="card">
+            <div class="icon">🧩</div>
+            <h3>用途卡片</h3>
+            <p>信息获取、内容导航、数据概览与模块切换。许多人借助 <strong>bwin</strong> 相关界面完成日常浏览与信息归类，适合对效率与结构有要求的用户。</p>
+            <span class="tag">常用场景</span>
+        </div>
+        <div class="card">
+            <div class="icon">📋</div>
+            <h3>结构特点</h3>
+            <p>侧重清晰分区、入口明确、视觉层级分明。以蓝绿为主的配色降低视觉疲劳，卡片式设计让信息一目了然，适合长时间阅读或浏览。</p>
+            <span class="tag">设计语言</span>
+        </div>
+        <div class="card">
+            <div class="icon">👥</div>
+            <h3>适合人群</h3>
+            <p>希望快速熟悉界面逻辑的新用户、需要归纳信息要点的内容读者，以及偏好整洁布局与低干扰色调的日常使用者。</p>
+            <span class="tag">受众</span>
+        </div>
+    </div>
+
+    <!-- 自然链接段落 (嵌入 bwin 链接) -->
+    <div class="link-section">
+        <p>如果你对相关平台与信息结构感兴趣，可以进一步了解 <a href="https://zhweb--bwin.com">bwin</a> 所提供的整合内容。许多用户在梳理功能入口与操作逻辑时，倾向于通过结构化卡片和简洁分类来降低认知负担。</p>
+        <p>本页从主题内容出发，整理出功能用途、视觉特点与常见疑问，供参考或对比。不构成任何操作建议，仅作为信息归纳示例。</p>
+    </div>
+
+    <!-- FAQ 摘要 (差异化内容) -->
+    <div class="faq-mini">
+        <h4>常见要点 · 快速摘要</h4>
+        <div class="faq-item">
+            <span class="faq-q">这个页面是关于什么的？</span>
+            <span class="faq-a">围绕 <strong>bwin</strong> 主题，梳理界面信息、适用人群、功能卡片风格，帮助新使用者快速建立认知框架。</span>
+        </div>
+        <div class="faq-item">
+            <span class="faq-q">为什么要用卡片和网格？</span>
+            <span class="faq-a">卡片式布局能清晰分隔不同信息模块，蓝绿色点缀配合网格结构在移动端与桌面端都有良好的可读性。</span>
+        </div>
+        <div class="faq-item">
+            <span class="faq-q">信息的真实性如何？</span>
+            <span class="faq-a">所有内容均为基础性归纳，无夸张承诺或误导性表述，仅代表一种结构化的描述角度。</span>
+        </div>
+    </div>
+
+    <!-- 人群 / 场景 差异化展示 (pill 样式) -->
+    <div class="cluster">
+        <div class="pill-box"><strong>⚡ 快速浏览</strong> · 适合日常信息扫描</div>
+        <div class="pill-box"><strong>🧭 功能导向</strong> · 注重入口与分类</div>
+        <div class="pill-box"><strong>🌿 视觉偏好</strong> · 蓝绿低干扰调性</div>
+    </div>
+
+    <footer>
+        <span>信息卡片 · 主题说明页 · 非官方页面</span>
+    </footer>
+</div>
+</body>
+</html>
